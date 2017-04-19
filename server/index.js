@@ -8,7 +8,7 @@ const router = require('./router')
 const app = express()
 
 // DB setup
-mongoose.connect('mongodb://localhost:auth/auth')
+mongoose.connect('mongodb://localhost/auth')
 
 // Express setup with middleware
 app.use(morgan('combined'))
