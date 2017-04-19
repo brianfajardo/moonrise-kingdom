@@ -1,14 +1,16 @@
 const express = require('express')
 const bodyParser = require('body-parser')
 const morgan = require('morgan')
+const mongoose = require('mongoose')
 
 const router = require('./router')
 
 const app = express()
 
-// app (express) setup with middleware
-// morgan -> log request details, debugging purposes
-// bodyParser -> parse incoming request to JSON
+// DB setup
+mongoose.connect('mongodb://localhost:auth/auth')
+
+// Express setup with middleware
 app.use(morgan('combined'))
 app.use(bodyParser.json({ type: '*/*' }))
 router(app)
