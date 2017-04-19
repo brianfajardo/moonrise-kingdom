@@ -11,7 +11,7 @@ const app = express()
 mongoose.connect('mongodb://localhost/auth')
 
 // Express setup with middleware
-app.use(morgan('combined'))
+app.use(morgan('dev'))
 app.use(bodyParser.json({ type: '*/*' }))
 router(app)
 

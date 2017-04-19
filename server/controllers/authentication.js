@@ -10,7 +10,9 @@ exports.signUp = (req, res, next) => {
 
     // Return error if email already used
     if (existingUser) {
-      return res.status(422).send({ error: 'Email is already used' })
+      return res
+        .status(422)
+        .send({ error: 'Email is already used' })
     }
 
     // If user with submitted email does not already exist, create and save
@@ -23,7 +25,9 @@ exports.signUp = (req, res, next) => {
       if (err) { return next(err) }
 
       // Respond to request with created user
-      res.json({ success: true })
+      res
+        .status(200)
+        .send({ database: 'User successfully created' })
     })
   })
 }
