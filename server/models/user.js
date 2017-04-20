@@ -1,7 +1,8 @@
 // mongoDB object modelling
 const mongoose = require('mongoose')
-const Schema = mongoose.Schema
 const bcrypt = require('bcrypt-nodejs')
+
+const Schema = mongoose.Schema
 
 // Metadata for model
 const userSchema = new Schema({
