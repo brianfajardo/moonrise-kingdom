@@ -1,4 +1,18 @@
+const jwt = require('jwt-simple')
 const User = require('../models/user')
+
+const config = require('../config')
+
+const createUserToken = user => {
+  const timestamp = new Date().getTime()
+
+  // sub = owner of token
+  // iat = issued at time
+  return jwt.encode({
+    sub: user.id,
+    iat: timestamp
+  }, config.secret)
+}
 
 exports.signUp = (req, res, next) => {
   const email = req.body.email
@@ -7,7 +21,7 @@ exports.signUp = (req, res, next) => {
   if (!email || !password) {
     return res
       .status(422)
-      .send({ error: 'You must provide an email and password'})
+      .send({ error: 'Please provide a valid email and password' })
   }
 
   // Search DB
@@ -29,10 +43,10 @@ exports.signUp = (req, res, next) => {
     user.save(err => {
       if (err) { return next(err) }
 
-      // Respond to request with created user
+      // After successful user creation, send JWT
       res
         .status(200)
-        .send({ database: 'User successfully created' })
+        .send({ token: createUserToken(user) })
     })
   })
 }
