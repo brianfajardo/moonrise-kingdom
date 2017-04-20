@@ -11,7 +11,7 @@ const localOptions = { usernameField: 'email' }
 
 // Create local strategy
 const localLogin = new LocalStrategy(localOptions, (email, password, done) => {
-  User.findById({ email }, (err, user) => {
+  User.findOne({ email: email.toLowerCase() }, (err, user) => {
     if (err) { return done(err) }
     if (!user) { return done(null, false) }
 

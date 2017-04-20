@@ -14,6 +14,14 @@ const createUserToken = user => {
   }, config.secret)
 }
 
+// User already signed up, needs JWT
+// Passport Local Strategy `done` callback returns
+// the user found on `req.user`
+
+exports.signIn = (req, res, next) => {
+  res.send({ token: createUserToken(req.user) })
+}
+
 exports.signUp = (req, res, next) => {
   const email = req.body.email
   const password = req.body.password

@@ -15,11 +15,9 @@ const userSchema = new Schema({
 })
 
 // On save pre hook (pre type = serial), encrypt password
+// Note: avoid fat arrow on top level function (`this` issue)
 userSchema.pre('save', function (next) {
-  // saving user instance
-  // Note: using a fat arrow function above will cause
-  // the value of `this` === the context of the modal file
-  // causing the code to break (won't hash pw)
+  // saving user instance for reference
   const user = this
 
   // gen salt then run callback
@@ -37,7 +35,10 @@ userSchema.pre('save', function (next) {
 })
 
 // Create a method on the userSchema
-userSchema.methods.comparePassword = (candidatePassword, callback) => {
+// Note: avoid fat arrow on top level function
+// `this` issue with user model instances
+
+userSchema.methods.comparePassword = function (candidatePassword, callback) {
   // `this.password` refers to the user instance
   bcrypt.compare(candidatePassword, this.password, (err, isMatch) => {
     if (err) { return callback(err) }
