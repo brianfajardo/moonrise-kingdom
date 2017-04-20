@@ -11,10 +11,13 @@ Essentially,
 ## Todos 📌
 
 ### Server-side
-* setup express server w/ middleware
-* create mongoose model, connect to mongodb
-* create signup route & controller
-* encrypt & encrypt passwords
+* ~~setup express server w/ middleware~~
+* ~~create mongoose model, connect to mongodb~~
+* ~~create signup route & controller~~
+* ~~encrypt passwords (bcrypt)~~
+* ~~distribute JSON web tokens~~
+* ~~create Passport JWT strategy (+ Local strategy)~~
+* ~~create post sigin route (req auth)~~
 
 ### Client-side
 * scaffold react App
