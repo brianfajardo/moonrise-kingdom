@@ -36,6 +36,16 @@ userSchema.pre('save', function (next) {
   })
 })
 
+// Create a method on the userSchema
+userSchema.methods.comparePassword = (candidatePassword, callback) => {
+  // `this.password` refers to the user instance
+  bcrypt.compare(candidatePassword, this.password, (err, isMatch) => {
+    if (err) { return callback(err) }
+
+    callback(null, isMatch)
+  })
+}
+
 // Create/load model class into mongoose
 const model = mongoose.model('user', userSchema)
 
