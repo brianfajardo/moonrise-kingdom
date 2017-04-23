@@ -1,9 +1,10 @@
-import React, { Component } from 'react'
+import React from 'react'
 
-export default class App extends Component {
-  render() {
-    return (
-      <div>React simple starter</div>
-    )
-  }
-}
+import Header from '../containers/Header'
+import LoginForm from '../containers/LoginForm'
+
+export default () =>
+  <div>
+    <Header />
+    <LoginForm />
+  </div>
