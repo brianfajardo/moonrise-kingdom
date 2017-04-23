@@ -14,7 +14,7 @@ ReactDOM.render(
   <Provider store={store}>
     <BrowserRouter>
       <App>
-        <Route path="/login" component={LoginForm} />
+        <Route path="/signin" component={LoginForm} />
       </App>
     </BrowserRouter>
   </Provider>,

@@ -2,6 +2,7 @@ const express = require('express')
 const bodyParser = require('body-parser')
 const morgan = require('morgan')
 const mongoose = require('mongoose')
+const cors = require('cors')
 
 const router = require('./router')
 
@@ -11,6 +12,7 @@ const app = express()
 mongoose.connect('mongodb://localhost/auth')
 
 // Express setup with middleware
+app.use(cors())
 app.use(morgan('dev'))
 app.use(bodyParser.json({ type: '*/*' }))
 router(app)
