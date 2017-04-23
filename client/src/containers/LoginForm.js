@@ -1,5 +1,8 @@
 import React, { Component } from 'react'
+import { connect } from 'react-redux'
 import { reduxForm, Field } from 'redux-form'
+
+import * as actions from '../actions/'
 
 class LoginForm extends Component {
   constructor(props) {
@@ -9,6 +12,7 @@ class LoginForm extends Component {
 
   onFormSubmit({ email, password }) {
     console.log(email, password)
+    this.props.userLogin({ email, password })
   }
 
   render() {
@@ -40,4 +44,7 @@ class LoginForm extends Component {
   }
 }
 
-export default reduxForm({ form: 'login' })(LoginForm)
+// v6 redux-form first decorates component
+// then is passed to connect HOC
+LoginForm = reduxForm({ form: 'login' })(LoginForm)
+export default connect(null, actions)(LoginForm)
