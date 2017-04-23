@@ -20,6 +20,13 @@ Essentially,
 * ~~create post sigin route (req auth)~~
 
 ### Client-side
-* scaffold react App
-* redux wiring
-* sign up form
+* scaffold App component
+* scaffold react-router routes
+* create header component with login/sign out, sign up features
+* create routes for:
+  1. home page "/"
+  2. sign up "/signup"
+  3. sign in "/signin"
+  4. protected resource "/accessible"
+* redux wiring actions & state
+* sign up form (redux-form?)
