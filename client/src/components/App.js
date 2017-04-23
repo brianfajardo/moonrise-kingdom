@@ -1,10 +1,9 @@
 import React from 'react'
 
-import Header from '../containers/Header'
-import LoginForm from '../containers/LoginForm'
+import Header from './Header'
 
-export default () =>
+export default (props) =>
   <div>
     <Header />
-    <LoginForm />
+    {props.children}
   </div>

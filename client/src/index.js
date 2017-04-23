@@ -6,13 +6,16 @@ import { BrowserRouter, Route } from 'react-router-dom'
 import reducers from './reducers'
 import configureStore from './store/configureStore'
 import App from './components/App'
+import LoginForm from './containers/LoginForm'
 
 const store = configureStore()
 
 ReactDOM.render(
   <Provider store={store}>
     <BrowserRouter>
-      <App />
+      <App>
+        <Route path="/login" component={LoginForm} />
+      </App>
     </BrowserRouter>
   </Provider>,
   document.getElementById('root'))
