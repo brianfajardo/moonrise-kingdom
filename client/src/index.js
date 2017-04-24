@@ -1,7 +1,7 @@
 import React from 'react'
 import ReactDOM from 'react-dom'
 import { Provider } from 'react-redux'
-import { BrowserRouter, Route } from 'react-router-dom'
+import { BrowserRouter as Router, Route } from 'react-router-dom'
 
 import reducers from './reducers'
 import configureStore from './store/configureStore'
@@ -12,10 +12,10 @@ const store = configureStore()
 
 ReactDOM.render(
   <Provider store={store}>
-    <BrowserRouter>
+    <Router>
       <App>
         <Route path="/signin" component={LoginForm} />
       </App>
-    </BrowserRouter>
+    </Router>
   </Provider>,
   document.getElementById('root'))
