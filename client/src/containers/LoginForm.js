@@ -12,50 +12,60 @@ class LoginForm extends Component {
   }
 
   onFormSubmit({ email, password }) {
-    console.log(email, password)
     this.props.userLogin({ email, password })
+  }
 
+  renderLoginError() {
+    const { loginError } = this.props
+    return (
+      loginError
+        ? <div className="alert alert-danger inline">
+            <strong>Uh oh! </strong>{loginError.error}
+          </div>
+        : null
+    )
   }
 
   render() {
     const { handleSubmit, authenticated } = this.props
 
+    if (authenticated) {
+      return <Redirect to='/protected' />
+    }
+
     return (
-      <div>
-        {authenticated
-          ? <Redirect to='/protected' />
-          : (
-            <form onSubmit={handleSubmit(this.onFormSubmit)}>
-              <div>
-                <Field
-                  name="email"
-                  placeholder="email"
-                  type="text"
-                  component="input"
-                />
-              </div>
-              <div>
-                <Field
-                  name="password"
-                  placeholder="password"
-                  type="password"
-                  component="input"
-                />
-              </div>
-              <button type="submit" className="btn btn-sm btn-primary">
-                Login
-              </button>
-            </form>
-          )}
-      </div>
+      <form onSubmit={handleSubmit(this.onFormSubmit)}>
+        <div>
+          <Field
+            name="email"
+            placeholder="email"
+            type="text"
+            component="input"
+          />
+        </div>
+        <div>
+          <Field
+            name="password"
+            placeholder="password"
+            type="password"
+            component="input"
+          />
+        </div>
+        {this.renderLoginError()}
+        <button type="submit" className="btn btn-sm btn-primary">
+          Login
+        </button>
+      </form>
     )
   }
 }
 
 const mapStateToProps = state => ({
-  authenticated: state.authenticated
+  authenticated: state.authenticated,
+  loginError: state.loginError
 })
 
 // v6 redux-form first decorates component then is passed to connect HOC
 LoginForm = reduxForm({ form: 'login' })(LoginForm)
+
 export default connect(mapStateToProps, actions)(LoginForm)
