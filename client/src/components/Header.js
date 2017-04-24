@@ -1,10 +1,11 @@
 import React from 'react'
+import { Link } from 'react-router-dom'
 
 export default () =>
-  <nav className="navbar">
-    <h1 className="navbar-brand">Redux Authentication</h1>
-    <ul className="navbar-nav">
-      <li className="nav-item">Login/Logout</li>
-      <li className="nav-item">Sign Up</li>
+  <nav className="navbar navbar-default">
+    <a className="navbar-brand" href="/">Redux Authentication</a>
+    <ul className="nav navbar-nav">
+      <li className="active"><a href="/signin">Login</a></li>
+      <li><a href="/signup">Sign Up</a></li>
     </ul>
   </nav>
