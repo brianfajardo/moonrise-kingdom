@@ -7,6 +7,8 @@ import reducers from './reducers'
 import configureStore from './store/configureStore'
 import App from './components/App'
 import LoginForm from './containers/LoginForm'
+import SignupForm from './containers/SignupForm'
+import Signout from './components/Signout'
 
 const store = configureStore()
 
@@ -14,7 +16,9 @@ ReactDOM.render(
   <Provider store={store}>
     <Router>
       <App>
+        <Route path="/signup" component={SignupForm} />
         <Route path="/signin" component={LoginForm} />
+        <Route path="/signout" component={Signout} />
       </App>
     </Router>
   </Provider>,

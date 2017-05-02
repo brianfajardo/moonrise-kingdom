@@ -27,6 +27,7 @@ export const userLogin = ({ email, password }) => {
 }
 
 export const userLogout = () => {
+  localStorage.removeItem('token')
   dispatch({ type: DEAUTH_USER })
   dispatch({ LOGIN_ERROR, payload: null })
 }

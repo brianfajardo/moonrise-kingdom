@@ -25,7 +25,7 @@ class Header extends Component {
 
     return (
       authenticated
-        ? <Link to="/signin" onClick={userLogout}>
+        ? <Link to="/signout" onClick={userLogout}>
           <Menu.Item
             name='Logout'
             active={activeItem === 'Logout'}
