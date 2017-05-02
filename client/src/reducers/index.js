@@ -1,13 +1,11 @@
 import { combineReducers } from 'redux'
 import { reducer as form } from 'redux-form'
 
-import authenticated from './auth_reducer'
-import loginError from './loginError_reducer'
+import auth from './auth_reducer'
 
 const rootReducer = combineReducers({
   form,
-  authenticated,
-  loginError
+  auth
 })
 
 export default rootReducer

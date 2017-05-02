@@ -20,7 +20,7 @@ class LoginForm extends Component {
     return (
       loginError
         ? <div className="alert alert-danger inline">
-            <strong>Uh oh! </strong>{loginError.error}
+            <strong>Uh oh! </strong>{loginError}
           </div>
         : null
     )
@@ -34,35 +34,35 @@ class LoginForm extends Component {
     }
 
     return (
-      <form onSubmit={handleSubmit(this.onFormSubmit)}>
-        <div>
-          <Field
-            name="email"
-            placeholder="email"
-            type="text"
-            component="input"
-          />
-        </div>
-        <div>
-          <Field
-            name="password"
-            placeholder="password"
-            type="password"
-            component="input"
-          />
-        </div>
-        {this.renderLoginError()}
-        <button type="submit" className="btn btn-sm btn-primary">
-          Login
+        <form onSubmit={handleSubmit(this.onFormSubmit)}>
+          <div>
+            <Field
+              name="email"
+              placeholder="email"
+              type="text"
+              component="input"
+            />
+          </div>
+          <div>
+            <Field
+              name="password"
+              placeholder="password"
+              type="password"
+              component="input"
+            />
+          </div>
+          {this.renderLoginError()}
+          <button type="submit" className="btn btn-sm btn-primary">
+            Login
         </button>
-      </form>
+        </form>
     )
   }
 }
 
 const mapStateToProps = state => ({
-  authenticated: state.authenticated,
-  loginError: state.loginError
+  authenticated: state.auth.authenticated,
+  loginError: state.auth.error
 })
 
 // v6 redux-form first decorates component then is passed to connect HOC

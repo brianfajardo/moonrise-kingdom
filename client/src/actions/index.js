@@ -2,6 +2,7 @@ import axios from 'axios'
 
 import {
   AUTH_USER,
+  DEAUTH_USER,
   LOGIN_ERROR
 } from '../constants/actionTypes.js'
 
@@ -13,7 +14,6 @@ export const userLogin = ({ email, password }) => {
     axios
       .post(`${ROOT_URL}/signin`, { email, password })
       .then(res => {
-        console.log(res)
         dispatch({ type: AUTH_USER })
         localStorage.setItem('JWT', res.data.token)
       })
@@ -24,4 +24,9 @@ export const userLogin = ({ email, password }) => {
         })
       })
   }
+}
+
+export const userLogout = () => {
+  dispatch({ type: DEAUTH_USER })
+  dispatch({ LOGIN_ERROR, payload: null })
 }
