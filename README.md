@@ -27,6 +27,11 @@ Essentially,
   1. home page "/"
   2. sign up "/signup"
   3. sign in "/signin"
-  4. protected resource "/accessible"
+  4. protected resource "/protected"
 * redux wiring actions & state
-* sign up form (redux-form?)
+* sign up form (redux-form v6)
+* on user signup
+  * confirm password (validation)
+  * send request to server
+    * save token, redirect user, update auth state
+    * if not successful display error to user

@@ -10,6 +10,7 @@ import {
 const ROOT_URL = 'http://localhost:3000'
 
 export const userLogin = ({ email, password }) => {
+  console.log(email, password)
   return (dispatch) => {
     axios
       .post(`${ROOT_URL}/signin`, { email, password })
@@ -29,5 +30,10 @@ export const userLogin = ({ email, password }) => {
 export const userLogout = () => {
   localStorage.removeItem('token')
   dispatch({ type: DEAUTH_USER })
-  dispatch({ LOGIN_ERROR, payload: null })
+  dispatch({ type: LOGIN_ERROR, payload: null })
 }
+
+export const clearLoginError = () => ({
+  type: LOGIN_ERROR,
+  payload: null
+})

@@ -10,7 +10,6 @@ class Header extends Component {
     super(props)
     this.state = { activeItem: 'Redux Auth' }
     this.handleItemClick = this.handleItemClick.bind(this)
-    this.renderLogin = this.renderLogin.bind(this)
   }
 
   handleItemClick({ name }) {
@@ -25,34 +24,35 @@ class Header extends Component {
 
     return (
       authenticated
-        ? <Link to="/signout" onClick={userLogout}>
-          <Menu.Item
-            name='Logout'
-            active={activeItem === 'Logout'}
-            onClick={this.handleSubmit}
+        ? <Menu.Item
+          as={Link}
+          to="/signout"
+          name='Logout'
+          active={activeItem === 'Logout'}
+          onClick={userLogout}
+        >
+          Logout
+        </Menu.Item>
+        : [<Menu.Item
+          as={Link}
+          to="/signin"
+          key={1}
+          name='Login'
+          active={activeItem === 'Login'}
+          onClick={this.handleItemClick}
+        >
+          Login
+            </Menu.Item>
+          , <Menu.Item
+            as={Link}
+            to="/signup"
+            key={2}
+            name='Sign Up'
+            active={activeItem === 'Sign Up'}
+            onClick={this.handleItemClick}
           >
-            Logout
+          Sign Up
             </Menu.Item>
-        </Link>
-        : [
-          <Link to="/signin" key={1}>
-            <Menu.Item
-              name='Login'
-              active={activeItem === 'Login'}
-              onClick={this.handleItemClick}
-            >
-              Login
-            </Menu.Item>
-            </Link>
-          , <Link to="/signup" key={2}>
-            <Menu.Item
-              name='Sign Up'
-              active={activeItem === 'Sign Up'}
-              onClick={this.handleItemClick}
-            >
-              Sign Up
-            </Menu.Item>
-          </Link>
         ]
     )
   }
@@ -62,15 +62,15 @@ class Header extends Component {
 
     return (
       <Menu>
-        <Link to="/">
-          <Menu.Item
-            name='Redux Auth'
-            active={activeItem === 'Redux Auth'}
-            onClick={this.handleItemClick}
-          >
-            Redux Auth
+        <Menu.Item
+          as={Link}
+          to="/"
+          name='Redux Auth'
+          active={activeItem === 'Redux Auth'}
+          onClick={this.handleItemClick}
+        >
+          Redux Auth
         </Menu.Item>
-        </Link>
         {this.renderLogin()}
       </Menu>
     )

@@ -2,17 +2,37 @@ import React, { Component } from 'react'
 import { connect } from 'react-redux'
 import { reduxForm, Field } from 'redux-form'
 import { Redirect } from 'react-router-dom'
+import { Button, Icon, Input } from 'semantic-ui-react'
 
 import * as actions from '../actions/'
 
 class LoginForm extends Component {
   constructor(props) {
     super(props)
+
     this.onFormSubmit = this.onFormSubmit.bind(this)
+  }
+
+  componentWillUnmount() {
+    this.props.clearLoginError()
   }
 
   onFormSubmit({ email, password }) {
     this.props.userLogin({ email, password })
+  }
+
+  renderField({ placeholder, type, icon, input }) {
+    return (
+      <Input
+        iconPosition='left'
+        placeholder={placeholder}
+        type={type}
+        {...input}
+      >
+        <Icon name={icon} />
+        <input />
+      </Input>
+    )
   }
 
   renderLoginError() {
@@ -34,13 +54,16 @@ class LoginForm extends Component {
     }
 
     return (
+      <div>
+        <h3>Log into your account</h3>
         <form onSubmit={handleSubmit(this.onFormSubmit)}>
           <div>
             <Field
               name="email"
               placeholder="email"
               type="text"
-              component="input"
+              icon="at"
+              component={this.renderField}
             />
           </div>
           <div>
@@ -48,14 +71,20 @@ class LoginForm extends Component {
               name="password"
               placeholder="password"
               type="password"
-              component="input"
+              icon="unlock alternate"
+              component={this.renderField}
             />
           </div>
           {this.renderLoginError()}
-          <button type="submit" className="btn btn-sm btn-primary">
+          <Button
+            type='submit'
+            color='green'
+            compact
+          >
             Login
-        </button>
+          </Button>
         </form>
+      </div>
     )
   }
 }
