@@ -4,7 +4,8 @@ import {
   SIGNUP_USER,
   AUTH_USER,
   DEAUTH_USER,
-  AUTH_ERROR
+  AUTH_ERROR,
+  FETCH_SECRET
 } from '../constants/actionTypes.js'
 
 // Server API
@@ -47,9 +48,30 @@ export const userLogin = ({ email, password }) => {
 }
 
 export const userLogout = () => {
-  localStorage.removeItem('token')
-  dispatch({ type: DEAUTH_USER })
-  dispatch({ type: AUTH_ERROR, payload: null })
+  return (dispatch) => {
+    localStorage.removeItem('token')
+    dispatch({ type: DEAUTH_USER })
+    dispatch({ type: AUTH_ERROR, payload: null })
+  }
+}
+
+export const fetchSecretCode = () => {
+  return (dispatch) => {
+    axios
+      .get(ROOT_URL, {
+        headers: { authorization: localStorage.getItem('token') }
+      })
+      .then(res => {
+        console.log('dispatch FETCH_SECRET')
+        dispatch({
+          type: FETCH_SECRET,
+          payload: res.data.message
+        })
+      })
+      .catch(err => {
+        console.log(err)
+      })
+  }
 }
 
 export const clearLoginError = () => ({

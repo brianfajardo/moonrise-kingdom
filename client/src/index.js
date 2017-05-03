@@ -12,7 +12,7 @@ import Welcome from './components/Welcome'
 import LoginForm from './containers/LoginForm'
 import SignupForm from './containers/SignupForm'
 import Signout from './components/Signout'
-import SecretDiscount from './components/SecretDiscount'
+import SecretDiscount from './containers/SecretDiscount'
 import RequireAuth from './components/RequireAuth'
 
 // Store
