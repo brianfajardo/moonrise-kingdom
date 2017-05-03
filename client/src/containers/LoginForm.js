@@ -2,7 +2,7 @@ import React, { Component } from 'react'
 import { connect } from 'react-redux'
 import { reduxForm, Field } from 'redux-form'
 import { Redirect } from 'react-router-dom'
-import { Button, Icon, Input } from 'semantic-ui-react'
+import { Button, Icon, Input, Divider, Label } from 'semantic-ui-react'
 
 import * as actions from '../actions/'
 
@@ -21,27 +21,32 @@ class LoginForm extends Component {
     this.props.userLogin({ email, password })
   }
 
-  renderField({ placeholder, type, icon, input }) {
+  renderField({ placeholder, type, icon, input, meta: { touched, error } }) {
     return (
-      <Input
-        iconPosition='left'
-        placeholder={placeholder}
-        type={type}
-        {...input}
-      >
-        <Icon name={icon} />
-        <input />
-      </Input>
+      <div>
+        <Input
+          iconPosition='left'
+          placeholder={placeholder}
+          type={type}
+          {...input}
+        >
+          <Icon name={icon} />
+          <input />
+          {touched && error
+            ? <Label basic color='red' pointing='left'>{error}</Label>
+            : null
+          }
+        </Input>
+      </div>
     )
   }
 
   renderLoginError() {
     const { loginError } = this.props
+
     return (
       loginError
-        ? <div className="alert alert-danger inline">
-            <strong>Uh oh! </strong>{loginError}
-          </div>
+        ? <Label color='red'>Uh oh! {loginError}</Label>
         : null
     )
   }
@@ -55,7 +60,7 @@ class LoginForm extends Component {
 
     return (
       <div>
-        <h3>Log into your account</h3>
+        <h3>Login</h3>
         <form onSubmit={handleSubmit(this.onFormSubmit)}>
           <div>
             <Field
@@ -66,6 +71,7 @@ class LoginForm extends Component {
               component={this.renderField}
             />
           </div>
+          <Divider />
           <div>
             <Field
               name="password"
@@ -76,6 +82,7 @@ class LoginForm extends Component {
             />
           </div>
           {this.renderLoginError()}
+          <Divider />
           <Button
             type='submit'
             color='green'
@@ -89,12 +96,31 @@ class LoginForm extends Component {
   }
 }
 
+const validate = values => {
+  const errors = {}
+
+  if (!values.email) {
+    errors.email = "Required"
+  } else if (!/^[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,4}$/i.test(values.email)) {
+    errors.email = 'Invalid email address'
+  }
+
+  if (!values.password) {
+    errors.password = "Enter your password"
+  }
+
+  return errors
+}
+
 const mapStateToProps = state => ({
   authenticated: state.auth.authenticated,
   loginError: state.auth.error
 })
 
 // v6 redux-form first decorates component then is passed to connect HOC
-LoginForm = reduxForm({ form: 'login' })(LoginForm)
+LoginForm = reduxForm({
+  validate,
+  form: 'login'
+})(LoginForm)
 
 export default connect(mapStateToProps, actions)(LoginForm)

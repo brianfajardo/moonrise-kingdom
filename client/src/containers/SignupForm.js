@@ -1,21 +1,28 @@
 import React, { Component } from 'react'
 import { reduxForm, Field } from 'redux-form'
-import { Button, Icon, Input } from 'semantic-ui-react'
+import { Button, Icon, Input, Divider, Label } from 'semantic-ui-react'
 
 import * as actions from '../actions/'
 
 class SignupForm extends Component {
-  renderField({ placeholder, type, icon, input }) {
+  renderField({ placeholder, type, icon, input, meta: { touched, error } }) {
     return (
-      <Input
-        iconPosition='left'
-        placeholder={placeholder}
-        type={type}
-        {...input}
-      >
-        <Icon name={icon} />
-        <input />
-      </Input>
+      <div>
+        <Input
+          iconPosition='left'
+          placeholder={placeholder}
+          type={type}
+          {...input}
+        >
+          <Icon name={icon} />
+          <input />
+        </Input>
+        {touched && error
+          ? <Label basic color='red' pointing='left'>{error}</Label>
+          : null
+        }
+        <Divider />
+      </div>
     )
   }
 
@@ -26,6 +33,7 @@ class SignupForm extends Component {
         <form>
           <div>
             <Field
+              label="email"
               name="email"
               placeholder="email"
               type="text"
@@ -44,7 +52,7 @@ class SignupForm extends Component {
           </div>
           <div>
             <Field
-              name="confirm password"
+              name="confirmPassword"
               placeholder="confirm password"
               type="password"
               icon="lock"
@@ -64,6 +72,35 @@ class SignupForm extends Component {
   }
 }
 
-SignupForm = reduxForm({ form: 'signup' })(SignupForm)
+// validate the inputs from the values object
+// if errors returns an empty object, redux form assumes
+// that the form is in the clear to submit
 
-export default SignupForm
+const validate = values => {
+  const errors = {}
+
+  if (!values.email) {
+    errors.email = "Required"
+  } else if (!/^[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,4}$/i.test(values.email)) {
+    errors.email = 'Invalid email address'
+  }
+
+  if (!values.password) {
+    errors.password = "Enter a password"
+  } else if (values.password.length < 6) {
+    errors.password = "For your security, please enter a password greater than 6 characters"
+  }
+
+  if (!values.confirmPassword) {
+    errors.confirmPassword = "Confirm password"
+  } else if (values.password !== values.confirmPassword) {
+    errors.confirmPassword = "Passwords do not match"
+  }
+
+  return errors
+}
+
+export default reduxForm({
+  validate,
+  form: 'signup'
+})(SignupForm)

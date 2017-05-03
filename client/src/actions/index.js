@@ -10,13 +10,12 @@ import {
 const ROOT_URL = 'http://localhost:3000'
 
 export const userLogin = ({ email, password }) => {
-  console.log(email, password)
   return (dispatch) => {
     axios
       .post(`${ROOT_URL}/signin`, { email, password })
       .then(res => {
         dispatch({ type: AUTH_USER })
-        localStorage.setItem('JWT', res.data.token)
+        localStorage.setItem('token', res.data.token)
       })
       .catch(err => {
         dispatch({
