@@ -24,15 +24,27 @@ class Header extends Component {
 
     return (
       authenticated
-        ? <Menu.Item
+        ? [<Menu.Item
           as={Link}
-          to="/signout"
-          name='Logout'
-          active={activeItem === 'Logout'}
-          onClick={userLogout}
+          key={1}
+          to="/secretdiscount"
+          name='Secret Discount'
+          active={activeItem === 'Secret Discount'}
+          onClick={this.handleItemClick}
         >
+        Secret Discount
+        </Menu.Item>
+          , <Menu.Item
+            as={Link}
+            to="/signout"
+            key={2}
+            name='Logout'
+            active={activeItem === 'Logout'}
+            onClick={userLogout}
+          >
           Logout
         </Menu.Item>
+        ]
         : [<Menu.Item
           as={Link}
           to="/signin"

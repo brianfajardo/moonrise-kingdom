@@ -3,6 +3,10 @@ import ReactDOM from 'react-dom'
 import { Provider } from 'react-redux'
 import { BrowserRouter as Router, Route } from 'react-router-dom'
 
+// Actions
+import { AUTH_USER } from './constants/actionTypes'
+
+// Components
 import App from './components/App'
 import Welcome from './components/Welcome'
 import LoginForm from './containers/LoginForm'
@@ -11,10 +15,15 @@ import Signout from './components/Signout'
 import SecretDiscount from './components/SecretDiscount'
 import RequireAuth from './components/RequireAuth'
 
+// Store
 import configureStore from './store/configureStore'
 import reducers from './reducers'
 
 const store = configureStore()
+
+// Automatically authenticate users with token
+const token = localStorage.getItem('token')
+token ? store.dispatch({ type: AUTH_USER }) : null
 
 ReactDOM.render(
   <Provider store={store}>
