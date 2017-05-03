@@ -10,7 +10,7 @@ const requireSignIn = passport.authenticate('local', { session: false })
 
 module.exports = app => {
   app.get('/', requireAuth, (req, res) => {
-    res.send({ message: 'And Bingo was his name-o!' })
+    res.send({ message: '🌟 Enter "REACT2017REDUX" for your free ticket! 🌟' })
   })
 
   app.post('/signin', requireSignIn, Authentication.signIn)

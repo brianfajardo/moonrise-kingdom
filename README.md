@@ -8,6 +8,9 @@ Essentially,
 6.	Server → I see your ID that authorizes you. *sends protected resource*
 
 
+### Current known bugs:
+* Upon Signing up or logging in, after redirect to /secretdiscount, 401 unauthorized error on componentWillMount method and component renders nothing
+
 ## Todos 📌
 
 ### Server-side
