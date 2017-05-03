@@ -1,10 +1,25 @@
 import React, { Component } from 'react'
+import { connect } from 'react-redux'
 import { reduxForm, Field } from 'redux-form'
 import { Button, Icon, Input, Divider, Label } from 'semantic-ui-react'
+import { Redirect } from 'react-router-dom'
 
 import * as actions from '../actions/'
 
 class SignupForm extends Component {
+  constructor(props) {
+    super(props)
+    this.handleFormSubmit = this.handleFormSubmit.bind(this)
+  }
+
+  componentWillUnmount() {
+    this.props.clearLoginError()
+  }
+
+  handleFormSubmit(formProps) {
+    this.props.userSignup(formProps)
+  }
+
   renderField({ placeholder, type, icon, input, meta: { touched, error } }) {
     return (
       <div>
@@ -19,18 +34,33 @@ class SignupForm extends Component {
         </Input>
         {touched && error
           ? <Label basic color='red' pointing='left'>{error}</Label>
-          : null
-        }
+          : null}
         <Divider />
       </div>
     )
   }
 
+  renderSignupError() {
+    const { signupError } = this.props
+
+    return (
+      signupError
+        ? <Label color='red'>OOOPS! {signupError}</Label>
+        : null
+    )
+  }
+
   render() {
+    const { authenticated, handleSubmit } = this.props
+
+    if (authenticated) {
+      return <Redirect to='/protected' />
+    }
+
     return (
       <div>
         <h3>Register an account with us!</h3>
-        <form>
+        <form onSubmit={handleSubmit(this.handleFormSubmit)}>
           <div>
             <Field
               label="email"
@@ -66,6 +96,7 @@ class SignupForm extends Component {
           >
             Submit
           </Button>
+          {this.renderSignupError()}
         </form>
       </div>
     )
@@ -100,7 +131,12 @@ const validate = values => {
   return errors
 }
 
-export default reduxForm({
-  validate,
-  form: 'signup'
-})(SignupForm)
+const mapStateToProps = state => ({
+  authenticated: state.auth.authenticated,
+  signupError: state.auth.error
+})
+
+// v6 redux-form first decorates component then is passed to connect HOC
+SignupForm = reduxForm({ validate, form: 'signup' })(SignupForm)
+
+export default connect(mapStateToProps, actions)(SignupForm)

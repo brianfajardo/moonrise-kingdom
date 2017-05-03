@@ -17,8 +17,8 @@ class LoginForm extends Component {
     this.props.clearLoginError()
   }
 
-  onFormSubmit({ email, password }) {
-    this.props.userLogin({ email, password })
+  onFormSubmit(formProps) {
+    this.props.userLogin(formProps)
   }
 
   renderField({ placeholder, type, icon, input, meta: { touched, error } }) {
@@ -34,8 +34,7 @@ class LoginForm extends Component {
           <input />
           {touched && error
             ? <Label basic color='red' pointing='left'>{error}</Label>
-            : null
-          }
+            : null}
         </Input>
       </div>
     )
@@ -81,7 +80,6 @@ class LoginForm extends Component {
               component={this.renderField}
             />
           </div>
-          {this.renderLoginError()}
           <Divider />
           <Button
             type='submit'
@@ -90,6 +88,7 @@ class LoginForm extends Component {
           >
             Login
           </Button>
+          {this.renderLoginError()}
         </form>
       </div>
     )
@@ -118,9 +117,6 @@ const mapStateToProps = state => ({
 })
 
 // v6 redux-form first decorates component then is passed to connect HOC
-LoginForm = reduxForm({
-  validate,
-  form: 'login'
-})(LoginForm)
+LoginForm = reduxForm({ validate, form: 'login' })(LoginForm)
 
 export default connect(mapStateToProps, actions)(LoginForm)
