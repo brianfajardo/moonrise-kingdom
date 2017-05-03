@@ -54,12 +54,12 @@ class SignupForm extends Component {
     const { authenticated, handleSubmit } = this.props
 
     if (authenticated) {
-      return <Redirect to='/protected' />
+      return <Redirect to='/secretdiscount' />
     }
 
     return (
       <div>
-        <h3>Register an account with us!</h3>
+        <h3>Create an account with us!</h3>
         <form onSubmit={handleSubmit(this.handleFormSubmit)}>
           <div>
             <Field

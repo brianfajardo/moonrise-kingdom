@@ -8,7 +8,7 @@ import * as actions from '../actions/'
 class Header extends Component {
   constructor(props) {
     super(props)
-    this.state = { activeItem: 'Redux Auth' }
+    this.state = { activeItem: 'Redux Auth Party' }
     this.handleItemClick = this.handleItemClick.bind(this)
   }
 
@@ -69,7 +69,7 @@ class Header extends Component {
           active={activeItem === 'Redux Auth'}
           onClick={this.handleItemClick}
         >
-          Redux Auth
+          Redux Auth Party
         </Menu.Item>
         {this.renderLogin()}
       </Menu>
