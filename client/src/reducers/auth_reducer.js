@@ -1,5 +1,4 @@
 import {
-  SIGNUP_USER,
   AUTH_USER,
   DEAUTH_USER,
   AUTH_ERROR,
@@ -11,7 +10,7 @@ export default (state = false, action) => {
     case AUTH_USER:
       return { ...state, authenticated: true, email: action.payload, error: '' }
     case DEAUTH_USER:
-      return { ...state, authenticated: false, email: '' }
+      return { ...state, authenticated: false, email: '', error: '', secret: '' }
     case AUTH_ERROR:
       return { ...state, error: action.payload }
     case FETCH_SECRET:

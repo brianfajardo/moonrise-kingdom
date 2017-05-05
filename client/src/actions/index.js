@@ -1,7 +1,6 @@
 import axios from 'axios'
 
 import {
-  SIGNUP_USER,
   AUTH_USER,
   DEAUTH_USER,
   AUTH_ERROR,
@@ -57,7 +56,6 @@ export const userLogout = () => {
   return (dispatch) => {
     localStorage.removeItem('token')
     dispatch({ type: DEAUTH_USER })
-    dispatch({ type: AUTH_ERROR, payload: null })
   }
 }
 
