@@ -9,9 +9,9 @@ import {
 export default (state = false, action) => {
   switch (action.type) {
     case AUTH_USER:
-      return { ...state, authenticated: true, error: '' }
+      return { ...state, authenticated: true, email: action.payload, error: '' }
     case DEAUTH_USER:
-      return { ...state, authenticated: false }
+      return { ...state, authenticated: false, email: '' }
     case AUTH_ERROR:
       return { ...state, error: action.payload }
     case FETCH_SECRET:

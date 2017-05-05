@@ -32,7 +32,7 @@ class Header extends Component {
           active={activeItem === 'Secret Discount'}
           onClick={this.handleItemClick}
         >
-        Secret Discount
+          Secret Discount
         </Menu.Item>
           , <Menu.Item
             as={Link}

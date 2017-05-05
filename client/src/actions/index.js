@@ -16,7 +16,10 @@ export const userSignup = ({ email, password }) => {
     axios
       .post(`${ROOT_URL}/signup`, { email, password })
       .then(res => {
-        dispatch({ type: AUTH_USER })
+        dispatch({
+          type: AUTH_USER,
+          payload: res.data.email
+        })
         localStorage.setItem('token', res.data.token)
       })
       // axios error handling
@@ -35,7 +38,10 @@ export const userLogin = ({ email, password }) => {
     axios
       .post(`${ROOT_URL}/signin`, { email, password })
       .then(res => {
-        dispatch({ type: AUTH_USER })
+        dispatch({
+          type: AUTH_USER,
+          payload: res.data.email
+        })
         localStorage.setItem('token', res.data.token)
       })
       .catch(err => {
@@ -62,14 +68,10 @@ export const fetchSecretCode = () => {
         headers: { authorization: localStorage.getItem('token') }
       })
       .then(res => {
-        console.log('dispatch FETCH_SECRET')
         dispatch({
           type: FETCH_SECRET,
           payload: res.data.message
         })
-      })
-      .catch(err => {
-        console.log(err)
       })
   }
 }

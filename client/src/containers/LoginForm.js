@@ -54,7 +54,7 @@ class LoginForm extends Component {
     const { handleSubmit, authenticated } = this.props
 
     if (authenticated) {
-      return <Redirect to='/secretdiscount' />
+      return <Redirect to='/' />
     }
 
     return (

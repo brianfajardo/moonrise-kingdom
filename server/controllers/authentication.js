@@ -19,7 +19,10 @@ const createUserToken = user => {
 // the user found on `req.user`
 
 exports.signIn = (req, res, next) => {
-  res.send({ token: createUserToken(req.user) })
+  res.send({
+    email: req.body.email,
+    token: createUserToken(req.user)
+  })
 }
 
 exports.signUp = (req, res, next) => {
@@ -54,7 +57,10 @@ exports.signUp = (req, res, next) => {
       // After successful user creation, send JWT
       res
         .status(200)
-        .send({ token: createUserToken(user) })
+        .send({
+          email: req.body.email,
+          token: createUserToken(user)
+        })
     })
   })
 }
