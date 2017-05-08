@@ -10,7 +10,9 @@ import {
 // Server API
 const ROOT_URL = 'http://localhost:3000'
 
-export const userSignup = ({ email, password }) => {
+// Callback is executed once localStorage sets the token
+// Workaround for async promise request
+export const userSignup = ({ email, password }, callback) => {
   return (dispatch) => {
     axios
       .post(`${ROOT_URL}/signup`, { email, password })
@@ -20,6 +22,7 @@ export const userSignup = ({ email, password }) => {
           payload: res.data.email
         })
         localStorage.setItem('token', res.data.token)
+        callback()
       })
       // axios error handling
       // error.response.data.error
@@ -32,7 +35,9 @@ export const userSignup = ({ email, password }) => {
   }
 }
 
-export const userLogin = ({ email, password }) => {
+// Callback is executed once localStorage sets the token
+// Workaround for async promise request
+export const userLogin = ({ email, password }, callback) => {
   return (dispatch) => {
     axios
       .post(`${ROOT_URL}/signin`, { email, password })
@@ -42,6 +47,7 @@ export const userLogin = ({ email, password }) => {
           payload: res.data.email
         })
         localStorage.setItem('token', res.data.token)
+        callback()
       })
       .catch(err => {
         dispatch({

@@ -17,10 +17,12 @@ export default () =>
   <Router>
     <div>
       <Header />
-      <Route exact path="/" component={Welcome} />
-      <Route path="/signup" component={SignupForm} />
-      <Route path="/signin" component={LoginForm} />
-      <Route path="/signout" component={Signout} />
-      <Route path="/secretdiscount" component={RequireAuth(SecretDiscount)} />
+      <Switch>
+        <Route path="/signup" component={SignupForm} />
+        <Route path="/signin" component={LoginForm} />
+        <Route path="/signout" component={Signout} />
+        <Route path="/secretdiscount" component={RequireAuth(SecretDiscount)} />
+        <Route path="/" component={Welcome} />
+      </Switch>
     </div>
   </Router>

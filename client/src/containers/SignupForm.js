@@ -17,7 +17,7 @@ class SignupForm extends Component {
   }
 
   handleFormSubmit(formProps) {
-    this.props.userSignup(formProps)
+    this.props.userSignup(formProps, () => this.props.history.push('/secretdiscount'))
   }
 
   renderField({ placeholder, type, icon, input, meta: { touched, error } }) {
@@ -53,9 +53,9 @@ class SignupForm extends Component {
   render() {
     const { authenticated, handleSubmit } = this.props
 
-    if (authenticated) {
-      return <Redirect to='/' />
-    }
+    // if (authenticated) {
+    //   return <Redirect to='/' />
+    // }
 
     return (
       <div>

@@ -18,7 +18,7 @@ class LoginForm extends Component {
   }
 
   onFormSubmit(formProps) {
-    this.props.userLogin(formProps)
+    this.props.userLogin(formProps, () => this.props.history.push('/secretdiscount'))
   }
 
   renderField({ placeholder, type, icon, input, meta: { touched, error } }) {
@@ -53,9 +53,9 @@ class LoginForm extends Component {
   render() {
     const { handleSubmit, authenticated } = this.props
 
-    if (authenticated) {
-      return <Redirect to='/' />
-    }
+    // if (authenticated) {
+    //   return <Redirect to='/' />
+    // }
 
     return (
       <div>
